@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/jdmar3-comp426/a99-110/issues"
   },
-  "homepage": "https://github.com/jdmar3-comp426/a99-110#readme"
+  "homepage": "https://github.com/jdmar3-comp426/a99-110#readme",
+  "dependencies": {
+    "browser-sync": "^2.27.7",
+    "esm": "^3.2.25"
+  }
 }
