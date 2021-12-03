@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Home Page!</title>
-        <link rel="stylesheet" href="styles.css">
-        <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+<head>
+    <link rel="stylesheet" href="interface.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE NOT POSSIBLE QUIZ</title>
+</head>
+<body>
+    <h1 id = 'header'>THE NOT POSSIBLE QUIZ</h1>
 
-    <body>
-        <h1>The Possible Quiz!</h1>
-        <div id="directory">
-            <button class="login" href="index.html">Login</button>
-            <button class="signUp" href="origins.html">Sign Up</button>
-        </div>
-    </body>
+    
+    <button id = "startingButton" onclick="startQuestions()">Get Question</button>
+    <p>Score: <span id = "score">0</span></p>
+    <span id = "question"></span>
+    <br>
+    <button id = "answer1" onclick="getQuestion()"></button>
+    <button id = "answer2" onclick="getQuestion()"></button>
+    <button id = "answer3" onclick="getQuestion()"></button>
+    <button id = "answer4" onclick="getQuestion()"></button>
+
+    <script type = "text/javascript" src = "index.js"></script>
+</body>
 </html>
