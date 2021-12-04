@@ -108,6 +108,7 @@ h2 {
     background-color: rgb(185, 223, 226);
     text-align:center;
     transition: all 0.15s;
+    margin-bottom: 1em;
 }
 
 #starting_button:hover{
@@ -117,7 +118,14 @@ h2 {
 }
 
 #score {
-    margin-top: 6em;
+    margin-top: 10%;
+    font-family: 'Mouse Memoirs', sans-serif;
+    font-size: 2em;
+    color: white;
+}
+
+#question {
+    padding-top: 2em;
     font-family: 'Mouse Memoirs', sans-serif;
     font-size: 2em;
     color: white;
