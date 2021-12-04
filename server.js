@@ -347,6 +347,22 @@ app.get("/app/playerhistory/", (req, res) => {
 	const stmt = db.prepare("SELECT * FROM playerhistory").all();
 	res.status(200).json(stmt);
 });
+
+// /////////
+app.post("appn/new/highscores", (req, res) => {
+	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
+	const stmt = db.prepare(
+		"INSERT INTO playerhistory (user, score) VALUES (?, ?)"
+	);
+	const info = stmt.run(req.body.user);
+	res.json(req);
+});
+
+app.get("/app/highscores/", (req, res) => {
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	const stmt = db.prepare("SELECT * FROM highscores").all();
+	res.status(200).json(stmt);
+});
 // Default response for any other request
 app.use(function (req, res) {
 	res.json("Your API is working!");
