@@ -306,10 +306,10 @@ app.get("/app/answer/:id/:choice", function (req, res) {
 			correctAnswer = questions[i].answers.correctAnswer;
 		}
 	}
-	if ((req.params.choice == correctAnswer) || (req.params.choice == 14)) {
-		res.send("True")
+	if (req.params.choice == correctAnswer || req.params.choice == 14) {
+		res.send("True");
 	} else {
-		res.send("False")
+		res.send("False");
 	}
 	//res.status(200);
 });
@@ -336,12 +336,17 @@ app.get("/app/lastPlayers/", (req, res) => {
 });
 
 // Post new playerhistory
-app.post("appn/new/playerhistory", (req, res) => {
+app.post("app/new/playerhistory", (req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
 	const stmt = db.prepare(
 		"INSERT INTO playerhistory (user, question, answer, point) VALUES (?, ?, ?, ?)"
 	);
-	const info = stmt.run(req.body.user);
+	const info = stmt.run(
+		req.body.user,
+		req.body.question,
+		req.body.answer,
+		req.body.point
+	);
 	res.json(req);
 });
 
@@ -354,8 +359,10 @@ app.get("/app/playerhistory/", (req, res) => {
 // post new highscores
 app.post("/app/newHighscore", (req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
-	const stmt = db.prepare("INSERT INTO highscores (user, pass) VALUES (?, ?)");
-	const info = stmt.run(req.body.user, req.body.pass);
+	const stmt = db.prepare(
+		"INSERT INTO playerhistory (user, score) VALUES (?, ?)"
+	);
+	const info = stmt.run(req.body.user, req.body.score);
 	res.json(req);
 });
 
@@ -365,6 +372,7 @@ app.get("/app/highscores/", (req, res) => {
 	const stmt = db.prepare("SELECT * FROM highscores").all();
 	res.status(200).json(stmt);
 });
+
 // Default response for any other request
 app.use(function (req, res) {
 	res.json("Your API is working!");
