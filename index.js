@@ -15,6 +15,10 @@ function increaseScore() {
 function getQuestion() {
     // increaseScore if button selected with correct: 1
     currentQuestion += 1;
+    if (currentQuestion > 15) {
+        displayScores();
+        return;
+    }
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/questions/" + currentQuestion
     console.log(url)
@@ -22,7 +26,7 @@ function getQuestion() {
     call.send();
     call.onload = () => {
         document.getElementById("question").innerHTML = call.response
-        console.log(JSON.parse(call.response))
+        // console.log(JSON.parse(call.response))
     }
     getAnswers();
 }
@@ -37,40 +41,43 @@ function getAnswers() {
         let returnedResponse = call.response // will be a dictionary.
         console.log('returned response', returnedResponse);
         workWithThis = (JSON.parse(returnedResponse))
-        //the last element will have the correct answer.
+        // the last element will have the correct answer.
         document.getElementById("answer1").innerHTML = workWithThis["answerOne"];
         document.getElementById("answer2").innerHTML = workWithThis["answerTwo"];
         document.getElementById("answer3").innerHTML = workWithThis["answerThree"];
         document.getElementById("answer4").innerHTML = workWithThis["answerFour"];
 
-        console.log(JSON.parse(call.response))
+        // console.log(JSON.parse(call.response))
     }
 }
 
 function populateButtons() {
-    document.getElementById("answer1").innerHTML = workWithThis["answers"]["answerOne"];
-    document.getElementById("answer2").innerHTML = workWithThis["answers"]["answerTwo"];
-    document.getElementById("answer3").innerHTML = workWithThis["answers"]["answerThree"];
-    document.getElementById("answer4").innerHTML = workWithThis["answers"]["answerFour"];
+    document.getElementById("answer1").innerHTML = workWithThis["answerOne"]["answer"];
+    document.getElementById("answer2").innerHTML = workWithThis["answerTwo"];
+    document.getElementById("answer3").innerHTML = workWithThis["answerThree"];
+    document.getElementById("answer4").innerHTML = workWithThis["answerFour"];
 }
 
 function checkButton(number) {
-    let correct_answer = workWithThis["answers"]["correctAnswer"];
-    if (number === correct_answer) {
-        increaseScore();
+    let res;
+    if (number == 0) {
+        res = workWithThis[0]["correct"];
+
+    } else {
+        if (number = 1) {
+            res = workWithThis[1]["correct"];
+        }
     }
-    getQuestion();
-    
 
 }
 
-// function buttonStuff() { // The necessity of this will probably change when changed to radio buttons 
-//     document.getElementById("startingButton").style.display = "none"
-//     document.getElementById("answer1").style.visibility = "visible"
-//     document.getElementById("answer2").style.visibility = "visible"
-//     document.getElementById("answer3").style.visibility = "visible"
-//     document.getElementById("answer4").style.visibility = "visible"
-// }
+function buttonStuff() { // The necessity of this will probably change when changed to radio buttons 
+     document.getElementById("starting_Button").style.display = "none"
+     document.getElementById("answer1").style.visibility = "visible"
+     document.getElementById("answer2").style.visibility = "visible"
+     document.getElementById("answer3").style.visibility = "visible"
+     document.getElementById("answer4").style.visibility = "visible"
+ }
 
 
 function postUser() {
@@ -89,6 +96,85 @@ function postUser() {
     // call.setRequestHeader("Content-type", "application/json", "Access-Control-Allow-Origin", "*" );
     call.send(toSend);
     call.onload = () => {
+        //console.log((call.response));
+    }
+}
+
+// function clicker() {
+//     document.location = 'quiz.html';
+//     postUser()
+// }
+
+function trackUserHistory() {
+    let call = new XMLHttpRequest();
+    let url = "http://localhost:5000/app/new/lastPlayer/";
+    console.log(url);
+    call.open("POST", url, true);
+    
+    // call.setRequestHeader("Access-Control-Allow-Origin", "*");
+    call.setRequestHeader("Content-Type", "application/json", "Access-Control-Allow-Origin", "*");
+    // call.send("user=test&pass=supersecurepassword");
+    let toSend = JSON.stringify({user: "help"});
+    
+    call.send(toSend);
+    call.onload = () => {
         console.log((call.response));
     }
+}
+
+function getUserHistory() {
+    let call = new XMLHttpRequest();
+    let url = "http://localhost:5000/app/lastPlayers/"
+    console.log(url)
+    call.open("GET", url)
+    call.send();
+    call.onload = () => {
+        document.getElementById("Element to put response into (multiple elements may be necessary)").innerHTML = call.response
+        console.log(JSON.parse(call.response))
+    }
+}
+
+function checkIfRight(buttonNumber) {
+    let call = new XMLHttpRequest();
+    let url = "http://localhost:5000/app/answer/" + currentQuestion + "/" + buttonNumber;
+    console.log(url)
+    console.log("URL ^")
+    call.open("GET", url)
+    call.send();
+    call.onload = () => {
+        //document.getElementById("Element to put response into (multiple elements may be necessary)").innerHTML = call.response
+        console.log(call.response)
+        if (call.response != "False") {
+            increaseScore();
+        }
+    }
+}
+
+function buttonOneAction() {
+    let buttonNumber = 1;
+    //console.log("Before Check")
+    checkIfRight(buttonNumber);
+    //console.log("After Check")
+    getQuestion();
+}
+function buttonTwoAction() {
+    let buttonNumber = 2;
+    //console.log("Before Check")
+    checkIfRight(buttonNumber);
+    //console.log("After Check")
+    getQuestion();
+}
+function buttonThreeAction() {
+    let buttonNumber = 3;
+    //console.log("Before Check")
+    checkIfRight(buttonNumber);
+    //console.log("After Check")
+    getQuestion();
+}
+function buttonFourAction() {
+    let buttonNumber = 4;
+    //console.log("Before Check")
+    checkIfRight(buttonNumber);
+    //console.log("After Check")
+    getQuestion();
 }

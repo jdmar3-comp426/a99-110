@@ -16,14 +16,13 @@
 
         <section class="center">
             <div class="login-container">
-                <button id="starting_button" onclick="startQuestions()">Next Question</button>
-                <br>
+                <button id="starting_button" onclick="startQuestions()">Get Question</button>
                 <span id="question"></span>
                 <br>
-                <button class="quiz_btn" id = "answer1" onclick="checkButton(1)"></button>
-                <button class="quiz_btn" id = "answer2" onclick="checkButton(2)"></button>
-                <button class="quiz_btn" id = "answer3" onclick="checkButton(3)"></button>
-                <button class="quiz_btn" id = "answer4" onclick="checkButton(4)"></button>
+                <button class="quiz_btn" id = "answer1" onclick="buttonOneAction()"></button>
+                <button class="quiz_btn" id = "answer2" onclick="buttonTwoAction()"></button>
+                <button class="quiz_btn" id = "answer3" onclick="buttonThreeAction()"></button>
+                <button class="quiz_btn" id = "answer4" onclick="buttonFourAction()"></button>
                 <p id ="score">Score: <span>0</span></p>
             </div>
         </section>
