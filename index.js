@@ -105,3 +105,24 @@ function getUserHistory() {
         console.log(JSON.parse(call.response))
     }
 }
+
+function checkIfRight(buttonNumber) {
+    let call = new XMLHttpRequest();
+    let url = "http://localhost:5000/app/answer/" + buttonNumber;
+    // console.log(url)
+    call.open("GET", url)
+    call.send();
+    call.onload = () => {
+        //document.getElementById("Element to put response into (multiple elements may be necessary)").innerHTML = call.response
+        if (call.response != "False") {
+            increaseScore();
+        }
+    }
+}
+
+function buttonOneAction() {
+    let buttonNumber = 1;
+    checkIfRight(buttonNumber);
+    getQuestion();
+
+}
