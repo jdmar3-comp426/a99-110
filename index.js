@@ -9,7 +9,7 @@ function startQuestions() {
 
 function increaseScore() {
     points += 1;
-    document.getElementById("score").innerHTML = points;
+    document.getElementById("score").innerHTML = "Score: " + points;
    
 }
 
