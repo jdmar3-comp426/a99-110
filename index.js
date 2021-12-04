@@ -213,7 +213,6 @@ function deleteFunction() {
     }
 }
 function getID() {
-    let id = getID()
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/user/last";
     
