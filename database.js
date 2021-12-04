@@ -15,7 +15,9 @@ if (row === undefined) {
     // Set a const that will contain your SQL commands to initialize the database.
     const sqlInit = `
         CREATE TABLE userinfo ( id INTEGER PRIMARY KEY, user TEXT, pass TEXT );
-		
+		CREATE TABLE highscores (id INTEGER PRIMARY KEY, user TEXT, score INT );
+        CREATE TABLE playerhistory (id INTEGER PRIMARY KEY, user TEXT, question TEXT, answer TEXT, point INT );
+]       CREATE TABLE lastplayers (id INTEGER PRIMARY KEY, user TEXT)
     `;
     // Execute SQL commands that we just wrote above.
     db.exec(sqlInit);
