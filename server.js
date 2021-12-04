@@ -4,7 +4,7 @@ var app = express();
 var db = require("./database.js");
 // Require md5 MODULE
 var md5 = require("md5");
-var cors = require("cors")
+var cors = require("cors");
 const { Router } = require("express");
 // Make Express use its own built-in body parser
 app.use(express.urlencoded({ extended: true }));
@@ -182,7 +182,7 @@ const questions = [
 
 // Set server port
 var HTTP_PORT = "5000";
-app.options('*', cors())
+app.options("*", cors());
 // Start server
 app.listen(HTTP_PORT, () => {
 	console.log("Server running on port %PORT%".replace("%PORT%", HTTP_PORT));
@@ -197,10 +197,10 @@ app.get("/app/", (req, res, next) => {
 // Define other CRUD API endpoints using express.js and better-sqlite3
 // CREATE a new user (HTTP method POST) at endpoint /app/new/
 app.post("/app/new/", (req, res) => {
-	res.setHeader("Access-Control-Allow-Origin", "*")//, "Content-Type", "application/json");
+	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
 	const stmt = db.prepare("INSERT INTO userinfo (user, pass) VALUES (?, ?)");
 	const info = stmt.run(req.body.user, req.body.pass);
-	res.json(req)
+	res.json(req);
 });
 // READ a list of all users (HTTP method GET) at endpoint /app/users/
 app.get("/app/users", (req, res) => {
@@ -221,7 +221,12 @@ app.get("/app/user/:id", (req, res) => {
 
 // UPDATE a single user (HTTP method PATCH) at endpoint /app/update/user/:id
 app.patch("/app/update/user/:id", (req, res) => {
-	res.setHeader("Access-Control-Allow-Origin", "*", "Content-type", "application/json");
+	res.setHeader(
+		"Access-Control-Allow-Origin",
+		"*",
+		"Content-type",
+		"application/json"
+	);
 	const stmt = db.prepare(
 		"UPDATE userinfo SET user = COALESCE(?,user), pass = COALESCE(?,pass) WHERE id = ?"
 	);
@@ -312,15 +317,14 @@ app.post("/app", function (req, res) {
 	res.send("Hello World");
 });
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// We are ultimately only going to post and get from the table. 
+// We are ultimately only going to post and get from the table.
 // CREATE a new user (HTTP method POST) at endpoint /app/new/lastPlayer
 app.post("/app/new/lastPlayer/", (req, res) => {
-	res.setHeader("Access-Control-Allow-Origin", "*")//, "Content-Type", "application/json");
+	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
 	const stmt = db.prepare("INSERT INTO lastplayers (user) VALUES (?)");
 	const info = stmt.run(req.body.user);
-	res.json(req)
+	res.json(req);
 });
 // READ a list of all users (HTTP method GET) at endpoint /app/lastPlayers/
 app.get("/app/lastPlayers/", (req, res) => {
@@ -329,7 +333,20 @@ app.get("/app/lastPlayers/", (req, res) => {
 	res.status(200).json(stmt);
 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+app.post("appn/new/playerhistory", (req, res) => {
+	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
+	const stmt = db.prepare(
+		"INSERT INTO playerhistory (user, question, answer, point) VALUES (?, ?, ?, ?)"
+	);
+	const info = stmt.run(req.body.user);
+	res.json(req);
+});
 
+app.get("/app/playerhistory/", (req, res) => {
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	const stmt = db.prepare("SELECT * FROM playerhistory").all();
+	res.status(200).json(stmt);
+});
 // Default response for any other request
 app.use(function (req, res) {
 	res.json("Your API is working!");
