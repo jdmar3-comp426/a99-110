@@ -20,7 +20,7 @@ function submitScore(score) {
     call.setRequestHeader("Content-Type", "application/json", "Access-Control-Allow-Origin", "*");
     
     score = score.toString();
-    let toSend = JSON.stringify({user: current_user, score: score});
+    let toSend = JSON.stringify({user: localStorage.currentperson, score: score});
     console.log(toSend)
     
     // call.setRequestHeader("Content-type", "application/json", "Access-Control-Allow-Origin", "*" );
@@ -34,7 +34,7 @@ function getQuestion() {
     getID();
     currentQuestion += 1;
     if (currentQuestion > 15) {
-        // document.location = 'leaderboard.html';
+        document.location = 'leaderboard.html';
         submitScore(points);
         trackUserHistory();
         getID();
@@ -102,10 +102,14 @@ function buttonStuff() { // The necessity of this will probably change when chan
 
 
 function postUser() {
-    document.location = 'quiz.html';
     const user = document.getElementById("login_form").user.value;
     const pass = document.getElementById("login_form").pass.value;
-    
+    let testing = document.getElementById("login_form").user.value;
+    console.log(testing);
+    current_user = testing;
+    console.log(current_user);
+    localStorage.currentperson = testing;
+    document.location = 'quiz.html';
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/new/";
     console.log(url);
@@ -135,7 +139,7 @@ function trackUserHistory() {
     // call.setRequestHeader("Access-Control-Allow-Origin", "*");
     call.setRequestHeader("Content-Type", "application/json", "Access-Control-Allow-Origin", "*");
     // call.send("user=test&pass=supersecurepassword");
-    let toSend = JSON.stringify({user: current_user});
+    let toSend = JSON.stringify({user: localStorage.currentperson});
     
     call.send(toSend);
     call.onload = () => {
@@ -201,17 +205,13 @@ function buttonFourAction() {
 }
 
 function deleteFunction() {
-    let id = getID()
+    let id = localStorage.lastID;
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/delete/user/" + id;
     call.open("GET", url)
     call.send();
     call.onload = () => {
         //document.getElementById("Element to put response into (multiple elements may be necessary)").innerHTML = call.response
-        console.log(call.response)
-        if (call.response != "False") {
-            increaseScore();
-        }
     }
 }
 function getID() {
@@ -229,7 +229,7 @@ function getID() {
 function createLeaders() {
     var my_list = document.getElementById("leaders");
     var call = new XMLHttpRequest();
-    var url = "http://localhost:5000/app/users/";
+    var url = "http://localhost:5000/app/highscores/";
 
     call.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -245,5 +245,6 @@ function createLeaders() {
         for(i = 0; i < arr.length; i++) {
             my_list.innerHTML += "<li> User: "+ arr[i].user + " --- Score: "+ arr[i].score+ "</li>";
         }
+        localStorage.lastID = i;
     }
 }
