@@ -207,11 +207,12 @@ function buttonFourAction() {
 function deleteFunction() {
     let id = localStorage.lastID;
     let call = new XMLHttpRequest();
-    let url = "http://localhost:5000/app/delete/user/" + id;
-    call.open("GET", url)
+    let url = "http://localhost:5000/app/delete/user/" + localStorage.currentperson;
+    console.log(url)
+    call.open("DELETE", url)
     call.send();
     call.onload = () => {
-        //document.getElementById("Element to put response into (multiple elements may be necessary)").innerHTML = call.response
+        console.log(call.response)
     }
 }
 function getID() {

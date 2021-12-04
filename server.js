@@ -248,17 +248,27 @@ app.patch("/app/update/user/:user", (req, res) => {
 });
 
 // DELETE a single user (HTTP method DELETE) at endpoint /app/delete/user/:id
-app.delete("/app/delete/user/:id", (req, res) => {
+// app.delete("/app/delete/user/:id", (req, res) => {
+// 	res.setHeader("Access-Control-Allow-Origin", "*");
+// 	const stmt = db.prepare("DELETE FROM highscores WHERE id = ?");
+// 	const info = stmt.run(req.params.id);
+// 	res.json({
+// 		message:
+// 			info.changes +
+// 			" record deleted: " +
+// 			"ID " +
+// 			req.params.id +
+// 			" (200)",
+// 	});
+// });
+
+// DELETE a single user (HTTP method DELETE) at endpoint /app/delete/user/:id
+app.delete("/app/delete/user/:user", (req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*");
-	const stmt = db.prepare("DELETE FROM userinfo WHERE id = ?");
-	const info = stmt.run(req.params.id);
+	const stmt = db.prepare("DELETE FROM highscores WHERE user = ?");
+	const info = stmt.run(req.params.user);
 	res.json({
-		message:
-			info.changes +
-			" record deleted: " +
-			"ID " +
-			req.params.id +
-			" (200)",
+		"message": req
 	});
 });
 
