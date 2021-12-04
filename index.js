@@ -7,12 +7,14 @@ function startQuestions() {
     buttonStuff()
 };
 
+// increases score by 1 and updates the UI
 function increaseScore() {
     points += 1;
     document.getElementById("score").innerHTML = "Score: " + points;
    
 }
 
+// posts to the highscores database the user that just completed the quiz and their score
 function submitScore(score) {
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/newHighscore";
@@ -29,6 +31,8 @@ function submitScore(score) {
         //console.log((call.response));
     }
 }
+
+// calls a new question and if there are no more questions, go to leaderboard functionality
 function getQuestion() {
     // increaseScore if button selected with correct: 1
     getID();
@@ -52,6 +56,7 @@ function getQuestion() {
     getAnswers();
 }
 
+// checks for correct answer
 function getAnswers() {
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/questions/" + currentQuestion + "/answers"
@@ -72,6 +77,7 @@ function getAnswers() {
     }
 }
 
+// populates buttons on quiz
 function populateButtons() {
     document.getElementById("answer1").innerHTML = workWithThis["answerOne"]["answer"];
     document.getElementById("answer2").innerHTML = workWithThis["answerTwo"];
@@ -79,6 +85,7 @@ function populateButtons() {
     document.getElementById("answer4").innerHTML = workWithThis["answerFour"];
 }
 
+// checks if the button pressed was correctt
 function checkButton(number) {
     let res;
     if (number == 0) {
@@ -89,18 +96,18 @@ function checkButton(number) {
             res = workWithThis[1]["correct"];
         }
     }
-
 }
 
+// don't use anymore
 function buttonStuff() { // The necessity of this will probably change when changed to radio buttons 
-     document.getElementById("starting_Button").style.display = "none"
-     document.getElementById("answer1").style.visibility = "visible"
-     document.getElementById("answer2").style.visibility = "visible"
-     document.getElementById("answer3").style.visibility = "visible"
-     document.getElementById("answer4").style.visibility = "visible"
- }
+    document.getElementById("starting_Button").style.display = "none"
+    document.getElementById("answer1").style.visibility = "visible"
+    document.getElementById("answer2").style.visibility = "visible"
+    document.getElementById("answer3").style.visibility = "visible"
+    document.getElementById("answer4").style.visibility = "visible"
+}
 
-
+// creates a new user from the form on index.html
 function postUser() {
     const user = document.getElementById("login_form").user.value;
     const pass = document.getElementById("login_form").pass.value;
@@ -129,7 +136,7 @@ function postUser() {
     }
 }
 
-
+// posts to lastplayer database
 function trackUserHistory() {
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/new/lastPlayer/";
@@ -147,6 +154,7 @@ function trackUserHistory() {
     }
 }
 
+// gets last players (player history) from database
 function getUserHistory() {
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/lastPlayers/"
@@ -159,6 +167,7 @@ function getUserHistory() {
     }
 }
 
+// checks if answer was right and increases score if so
 function checkIfRight(buttonNumber) {
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/answer/" + currentQuestion + "/" + buttonNumber;
@@ -175,6 +184,7 @@ function checkIfRight(buttonNumber) {
     }
 }
 
+// individually checks each button for correctness
 function buttonOneAction() {
     let buttonNumber = 1;
     //console.log("Before Check")
@@ -204,6 +214,7 @@ function buttonFourAction() {
     getQuestion();
 }
 
+// deletes a user from database
 function deleteFunction() {
     let id = localStorage.lastID;
     let call = new XMLHttpRequest();
@@ -215,6 +226,8 @@ function deleteFunction() {
         console.log(call.response)
     }
 }
+
+// grabs user ID
 function getID() {
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/user/last";
@@ -227,6 +240,7 @@ function getID() {
     }
 }
 
+// creates leaderboard!!! Which is essentially a list of players and their scores
 function createLeaders() {
     var my_list = document.getElementById("leaders");
     var call = new XMLHttpRequest();
@@ -250,6 +264,7 @@ function createLeaders() {
     }
 }
 
+// Meant to update account if user chooses to change password
 function updateAccount() {
     const user = document.getElementById("login_form").user.value;
     const pass = document.getElementById("login_form").pass.value;
@@ -278,6 +293,7 @@ function updateAccount() {
     }
 }
 
+// checks if a user is already in the scores database and if their score tops their highscore
 function validateUser(score) {
     var call = new XMLHttpRequest();
     var url = "http://localhost:5000/app/highscores/";
@@ -308,6 +324,7 @@ function validateUser(score) {
     }
 }
           
+// Password validation!
 function validateLogin() {
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/users/"
@@ -328,11 +345,10 @@ function validateLogin() {
     }
 }
 
+// updates score if a user's current score is better than the recorded one
 function patchScore(user, score) {
-    const user = user;
-    const score = score;
     let call = new XMLHttpRequest();
-    let url = "http://localhost:5000//app/update/highscores/:user/";
+    let url = "http://localhost:5000//app/update/highscores/" + user;
     console.log(url);
     call.open("POST", url, true);
     
