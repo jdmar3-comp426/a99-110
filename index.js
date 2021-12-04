@@ -16,7 +16,7 @@ function getQuestion() {
     // increaseScore if button selected with correct: 1
     currentQuestion += 1;
     if (currentQuestion > 15) {
-        displayScores();
+        document.location = 'leaderboard.html';
         return;
     }
     let call = new XMLHttpRequest();
