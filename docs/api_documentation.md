@@ -7,3 +7,4 @@ Then, we populate the quiz.html file with data from the backend using the getQue
 
 At the end of the game, the player is shown a leaderboard of player scores using the createLeaders() function in index.js, which populates a front end table from the high scores database. Then, the user has the option to play again as a new user via the updateAccount() function in index.js, which makes an API call to change the username and password of the current user. The user can also delete their account by calling the deleteFunction(), which removes their information from the database.
 
+Horray!
