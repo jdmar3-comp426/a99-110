@@ -6,6 +6,7 @@ var db = require("./database.js");
 var md5 = require("md5");
 var cors = require("cors");
 const { Router } = require("express");
+const { reset } = require("browser-sync");
 // Make Express use its own built-in body parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -297,19 +298,20 @@ app.get("/app/questions/:id/answers", function (req, res) {
 });
 
 // CHECK CORRECT ANSWER
-app.get("/app/answer/:id", function (req, res) {
+app.get("/app/answer/:id/:choice", function (req, res) {
 	res.setHeader("Access-Control-Allow-Origin", "*");
-	console.log(req);
-	if (
-		questions[parseInt(req.params.id) - 1].answers.correctAnswer ==
-			req.body.answer ||
-		req.params.id == 14
-	) {
-		res.send("True");
-	} else {
-		res.send("False");
+	let correctAnswer;
+	for (let i = 0; i < questions.length; i++) {
+		if (questions[i].id == req.params.id) {
+			correctAnswer = questions[i].answers.correctAnswer;
+		}
 	}
-	res.status(200);
+	if (req.params.choice == correctAnswer) {
+		res.send("True")
+	} else {
+		res.send("False")
+	}
+	//res.status(200);
 });
 
 app.post("/app", function (req, res) {

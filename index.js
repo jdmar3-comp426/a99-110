@@ -15,6 +15,10 @@ function increaseScore() {
 function getQuestion() {
     // increaseScore if button selected with correct: 1
     currentQuestion += 1;
+    if (currentQuestion > 15) {
+        displayScores();
+        return;
+    }
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/questions/" + currentQuestion
     console.log(url)
@@ -22,7 +26,7 @@ function getQuestion() {
     call.send();
     call.onload = () => {
         document.getElementById("question").innerHTML = call.response
-        console.log(JSON.parse(call.response))
+        // console.log(JSON.parse(call.response))
     }
     getAnswers();
 }
@@ -38,12 +42,12 @@ function getAnswers() {
         console.log('returned response', returnedResponse);
         workWithThis = (JSON.parse(returnedResponse))
         // the last element will have the correct answer.
-        // document.getElementById("answer1").innerHTML = workWithThis["answerOne"]["answer"];
-        // document.getElementById("answer2").innerHTML = workWithThis["answerTwo"];
-        // document.getElementById("answer3").innerHTML = workWithThis["answerThree"];
-        // document.getElementById("answer4").innerHTML = workWithThis["answerFour"];
+        document.getElementById("answer1").innerHTML = workWithThis["answerOne"];
+        document.getElementById("answer2").innerHTML = workWithThis["answerTwo"];
+        document.getElementById("answer3").innerHTML = workWithThis["answerThree"];
+        document.getElementById("answer4").innerHTML = workWithThis["answerFour"];
 
-        console.log(JSON.parse(call.response))
+        // console.log(JSON.parse(call.response))
     }
 }
 
@@ -67,13 +71,13 @@ function checkButton(number) {
 
 }
 
-// function buttonStuff() { // The necessity of this will probably change when changed to radio buttons 
-//     document.getElementById("startingButton").style.display = "none"
-//     document.getElementById("answer1").style.visibility = "visible"
-//     document.getElementById("answer2").style.visibility = "visible"
-//     document.getElementById("answer3").style.visibility = "visible"
-//     document.getElementById("answer4").style.visibility = "visible"
-// }
+function buttonStuff() { // The necessity of this will probably change when changed to radio buttons 
+     document.getElementById("starting_Button").style.display = "none"
+     document.getElementById("answer1").style.visibility = "visible"
+     document.getElementById("answer2").style.visibility = "visible"
+     document.getElementById("answer3").style.visibility = "visible"
+     document.getElementById("answer4").style.visibility = "visible"
+ }
 
 
 function postUser() {
@@ -92,7 +96,7 @@ function postUser() {
     // call.setRequestHeader("Content-type", "application/json", "Access-Control-Allow-Origin", "*" );
     call.send(toSend);
     call.onload = () => {
-        console.log((call.response));
+        //console.log((call.response));
     }
 }
 
@@ -132,12 +136,14 @@ function getUserHistory() {
 
 function checkIfRight(buttonNumber) {
     let call = new XMLHttpRequest();
-    let url = "http://localhost:5000/app/answer/" + buttonNumber;
-    // console.log(url)
+    let url = "http://localhost:5000/app/answer/" + currentQuestion + "/" + buttonNumber;
+    console.log(url)
+    console.log("URL ^")
     call.open("GET", url)
     call.send();
     call.onload = () => {
         //document.getElementById("Element to put response into (multiple elements may be necessary)").innerHTML = call.response
+        console.log(call.response)
         if (call.response != "False") {
             increaseScore();
         }
@@ -146,7 +152,29 @@ function checkIfRight(buttonNumber) {
 
 function buttonOneAction() {
     let buttonNumber = 1;
+    //console.log("Before Check")
     checkIfRight(buttonNumber);
+    //console.log("After Check")
     getQuestion();
-
+}
+function buttonTwoAction() {
+    let buttonNumber = 2;
+    //console.log("Before Check")
+    checkIfRight(buttonNumber);
+    //console.log("After Check")
+    getQuestion();
+}
+function buttonThreeAction() {
+    let buttonNumber = 3;
+    //console.log("Before Check")
+    checkIfRight(buttonNumber);
+    //console.log("After Check")
+    getQuestion();
+}
+function buttonFourAction() {
+    let buttonNumber = 4;
+    //console.log("Before Check")
+    checkIfRight(buttonNumber);
+    //console.log("After Check")
+    getQuestion();
 }
