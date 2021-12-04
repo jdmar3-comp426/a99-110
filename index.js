@@ -35,6 +35,7 @@ function getQuestion() {
     currentQuestion += 1;
     if (currentQuestion > 15) {
         document.location = 'leaderboard.html';
+        validateUser(points);
         submitScore(points);
         trackUserHistory();
         getID();
@@ -268,6 +269,53 @@ function updateAccount() {
     call.setRequestHeader("Content-Type", "application/json", "Access-Control-Allow-Origin", "*");
     // call.send("user=test&pass=supersecurepassword");
     let toSend = JSON.stringify({user: user, pass: pass});
+    //console.log(toSend)
+    
+    // call.setRequestHeader("Content-type", "application/json", "Access-Control-Allow-Origin", "*" );
+    call.send(toSend);
+    call.onload = () => {
+        current_user = ((call.response));
+        console.log(current_user)
+    }
+}
+
+function validateUser(score) {
+    var call = new XMLHttpRequest();
+    var url = "http://localhost:5000/app/highscores/";
+
+    call.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var myArr = JSON.parse(this.responseText);
+            myFunction(myArr);
+        }
+    };
+    call.open("GET", url, true);
+    call.send();
+
+    function myFunction(arr) {
+        var i;
+        for(i = 0; i < arr.length; i++) {
+            if (myArr[i].user == localStorage.currentperson) {
+                if (myArr[i].score < score) {
+                    patchScore(myArr[i].user, score);
+                }
+            }
+        }
+    }
+}
+
+function patchScore(user, score) {
+    const user = user;
+    const score = score;
+    let call = new XMLHttpRequest();
+    let url = "http://localhost:5000//app/update/highscores/:user/";
+    console.log(url);
+    call.open("POST", url, true);
+    
+    // call.setRequestHeader("Access-Control-Allow-Origin", "*");
+    call.setRequestHeader("Content-Type", "application/json", "Access-Control-Allow-Origin", "*");
+    // call.send("user=test&pass=supersecurepassword");
+    let toSend = JSON.stringify({user: user, score: score});
     //console.log(toSend)
     
     // call.setRequestHeader("Content-type", "application/json", "Access-Control-Allow-Origin", "*" );
