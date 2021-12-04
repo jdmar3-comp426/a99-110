@@ -351,14 +351,11 @@ app.get("/app/playerhistory/", (req, res) => {
 	const stmt = db.prepare("SELECT * FROM playerhistory").all();
 	res.status(200).json(stmt);
 });
-
-// Post new high scores
-app.post("app/new/highscores", (req, res) => {
+// post new highscores
+app.post("/app/newHighscore", (req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
-	const stmt = db.prepare(
-		"INSERT INTO highscores (user, score) VALUES (?, ?)"
-	);
-	const info = stmt.run(req.body.user);
+	const stmt = db.prepare("INSERT INTO highscores (user, pass) VALUES (?, ?)");
+	const info = stmt.run(req.body.user, req.body.pass);
 	res.json(req);
 });
 
