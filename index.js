@@ -33,7 +33,7 @@ function getQuestion() {
     // increaseScore if button selected with correct: 1
     currentQuestion += 1;
     if (currentQuestion > 15) {
-        //document.location = 'leaderboard.html';
+        document.location = 'leaderboard.html';
         submitScore(points);
         return;
     }
@@ -195,4 +195,26 @@ function buttonFourAction() {
     checkIfRight(buttonNumber);
     //console.log("After Check")
     getQuestion();
+}
+
+function createLeaders() {
+    var my_list = document.getElementById("leaders");
+    var call = new XMLHttpRequest();
+    var url = "http://localhost:5000/app/users/";
+
+    call.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var myArr = JSON.parse(this.responseText);
+            myFunction(myArr);
+        }
+    };
+    call.open("GET", url, true);
+    call.send();
+
+    function myFunction(arr) {
+        var i;
+        for(i = 0; i < arr.length; i++) {
+            my_list.innerHTML += "<li> User: "+ arr[i].user + " --- Score: "+ arr[i].score+ "</li>";
+        }
+    }
 }
