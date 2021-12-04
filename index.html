@@ -5,21 +5,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gwendolyn:wght@700&family=Mouse+Memoirs&display=swap');
+    </style>
     <title>THE NOT POSSIBLE QUIZ</title>
 </head>
 <body>
-    <h1 id = 'header'>THE NOT POSSIBLE QUIZ</h1>
-
+    <div id="content">
+    <h1 class="center">THE POSSIBLE QUIZ</h1>
     
-    <button id = "startingButton" onclick="startQuestions()">Get Question</button>
-    <p>Score: <span id = "score">0</span></p>
-    <span id = "question"></span>
-    <br>
-    <button id = "answer1" onclick="getQuestion()"></button>
-    <button id = "answer2" onclick="getQuestion()"></button>
-    <button id = "answer3" onclick="getQuestion()"></button>
-    <button id = "answer4" onclick="getQuestion()"></button>
 
+    <section class="center">
+        <div class="login-container">
+            <h2 id="login">Login</h2>
+            <form id="login_form">
+                <div class="field">
+                    <label class="label">Username</label>
+                    <div class="control">
+                        <input class="input" id="username" type="text" placeholder="Cookie Monster" name="username">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control">
+                        <input class="input" type="password" placeholder="password123" name="password">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button class="sub_btn" type="button" onclick="postUser()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    </div>
     <script type = "text/javascript" src = "index.js"></script>
 </body>
 </html>
