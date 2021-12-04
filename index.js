@@ -299,10 +299,28 @@ function validateUser(score) {
                 if (myArr[i].score < score) {
                     patchScore(myArr[i].user, score);
                 }
+          }
+        }
+}
+          
+function validateLogin() {
+    let call = new XMLHttpRequest();
+    let url = "http://localhost:5000/app/users/"
+    console.log(url)
+    call.open("GET", url)
+    call.send();
+    call.onload = () => {
+        let returningJSON = (JSON.parse(call.response))
+        for (let i = 0; i < returningJSON.length; i++) {
+            if (returningJSON[i].user == document.getElementById("login_form").user.value) {
+                if (returningJSON[i].pass == document.getElementById("login_form").pass.value) {
+                    postUser();
+                } else {
+                    alert("That is the incorrect password!")
+                }
             }
         }
     }
-}
 
 function patchScore(user, score) {
     const user = user;
