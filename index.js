@@ -82,6 +82,8 @@ function buttonStuff() { // The necessity of this will probably change when chan
 
 function postUser() {
     document.location = 'quiz.html';
+    const user = document.getElementById("login_form").user.value;
+    const pass = document.getElementById("login_form").pass.value;
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/new/";
     console.log(url);
@@ -90,7 +92,7 @@ function postUser() {
     // call.setRequestHeader("Access-Control-Allow-Origin", "*");
     call.setRequestHeader("Content-Type", "application/json", "Access-Control-Allow-Origin", "*");
     // call.send("user=test&pass=supersecurepassword");
-    let toSend = JSON.stringify({user: "help", pass: "what"});
+    let toSend = JSON.stringify({user: user, pass: pass});
     //console.log(toSend)
     
     // call.setRequestHeader("Content-type", "application/json", "Access-Control-Allow-Origin", "*" );

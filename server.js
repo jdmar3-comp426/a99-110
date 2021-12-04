@@ -353,10 +353,10 @@ app.get("/app/playerhistory/", (req, res) => {
 });
 
 // Post new high scores
-app.post("appn/new/highscores", (req, res) => {
+app.post("app/new/highscores", (req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
 	const stmt = db.prepare(
-		"INSERT INTO playerhistory (user, score) VALUES (?, ?)"
+		"INSERT INTO highscores (user, score) VALUES (?, ?)"
 	);
 	const info = stmt.run(req.body.user);
 	res.json(req);
