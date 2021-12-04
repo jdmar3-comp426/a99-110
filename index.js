@@ -20,7 +20,7 @@ function submitScore(score) {
     console.log(current_user);
     let whoUser = current_user;
     score = score.toString();
-    let toSend = JSON.stringify({user: "whoUser", pass: score});
+    let toSend = JSON.stringify({user: "whoUser", score: score});
     console.log(toSend)
     
     // call.setRequestHeader("Content-type", "application/json", "Access-Control-Allow-Origin", "*" );

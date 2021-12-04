@@ -36,7 +36,7 @@ if ((row === undefined) || (row2 === undefined) || (row3 === undefined) || (row4
         console.log('Your database appears to be empty. I will initialize it now.');
         // Set a const that will contain your SQL commands to initialize the database.
         const sqlInit = `
-            CREATE TABLE highscores (id INTEGER PRIMARY KEY, user TEXT, score TEXT );
+            CREATE TABLE highscores (id INTEGER PRIMARY KEY, user TEXT, score INT );
         `;
         // Execute SQL commands that we just wrote above.
         db.exec(sqlInit);
