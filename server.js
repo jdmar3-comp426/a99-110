@@ -220,6 +220,16 @@ app.get("/app/user/:id", (req, res) => {
 	res.status(200).json(stmt);
 });
 
+// READ a single user (HTTP method GET) at endpoint /app/user/:id
+app.get("/app/user/last", (req, res) => {
+	// This appears to have been succesful.
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	const stmt = db
+		.prepare("SELECT id FROM playerhistory WHERE id = (SELECT MAX(id) FROM playerhistory)");
+	const info = stmt.run()
+	res.send(info);
+});
+
 // UPDATE a single user (HTTP method PATCH) at endpoint /app/update/user/:id
 app.patch("/app/update/user/:id", (req, res) => {
 	res.setHeader(
@@ -360,7 +370,7 @@ app.get("/app/playerhistory/", (req, res) => {
 app.post("/app/newHighscore", (req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
 	const stmt = db.prepare(
-		"INSERT INTO playerhistory (user, score) VALUES (?, ?)"
+		"INSERT INTO highscores (user, score) VALUES (?, ?)"
 	);
 	const info = stmt.run(req.body.user, req.body.score);
 	res.json(req);

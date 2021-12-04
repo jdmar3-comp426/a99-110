@@ -20,7 +20,7 @@ function submitScore(score) {
     console.log(current_user);
     let whoUser = current_user;
     score = score.toString();
-    let toSend = JSON.stringify({user: "whoUser", pass: score});
+    let toSend = JSON.stringify({user: "whoUser", score: score});
     console.log(toSend)
     
     // call.setRequestHeader("Content-type", "application/json", "Access-Control-Allow-Origin", "*" );
@@ -35,6 +35,7 @@ function getQuestion() {
     if (currentQuestion > 15) {
         //document.location = 'leaderboard.html';
         submitScore(points);
+        trackUserHistory();
         return;
     }
     let call = new XMLHttpRequest();
@@ -195,4 +196,31 @@ function buttonFourAction() {
     checkIfRight(buttonNumber);
     //console.log("After Check")
     getQuestion();
+}
+
+function deleteFunction() {
+    let id = getID()
+    let call = new XMLHttpRequest();
+    let url = "http://localhost:5000/app/delete/user/" + id;
+    call.open("GET", url)
+    call.send();
+    call.onload = () => {
+        //document.getElementById("Element to put response into (multiple elements may be necessary)").innerHTML = call.response
+        console.log(call.response)
+        if (call.response != "False") {
+            increaseScore();
+        }
+    }
+}
+function getID() {
+    let id = getID()
+    let call = new XMLHttpRequest();
+    let url = "http://localhost:5000/app/user/last";
+    
+    call.open("GET", url)
+    call.send();
+    call.onload = () => {
+        //document.getElementById("Element to put response into (multiple elements may be necessary)").innerHTML = call.response
+        console.log(call.response)
+    }
 }
