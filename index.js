@@ -1,5 +1,6 @@
 let points = 0;
 let currentQuestion = 0;
+let current_user;
 function startQuestions() {
     getQuestion();
     buttonStuff()
@@ -52,16 +53,22 @@ function buttonStuff() { // The necessity of this will probably change when chan
 
 
 function postUser() {
-    document.location = 'quiz.html';
-    let password = document.getElementByName('password').value;
-    let username = document.getElementByName('username').value;
+    // document.location = 'quiz.html';
     let call = new XMLHttpRequest();
-    let url = "http://localhost:5000/app/new/" + username+ "/" + password + "/";
+    let url = "http://localhost:5000/app/new/";
     console.log(url);
-    call.open("POST", url);
-    call.send();
+    call.open("POST", url, true);
+    
+    // call.setRequestHeader("Access-Control-Allow-Origin", "*");
+    call.setRequestHeader("Content-Type", "application/json", "Access-Control-Allow-Origin", "*");
+    // call.send("user=test&pass=supersecurepassword");
+    let toSend = JSON.stringify({user: "help", pass: "what"});
+    //console.log(toSend)
+    
+    // call.setRequestHeader("Content-type", "application/json", "Access-Control-Allow-Origin", "*" );
+    call.send(toSend);
     call.onload = () => {
-        console.log(JSON.parse(call.response));
+        console.log((call.response));
     }
 }
 
