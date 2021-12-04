@@ -332,7 +332,8 @@ app.get("/app/lastPlayers/", (req, res) => {
 	const stmt = db.prepare("SELECT * FROM lastplayers").all();
 	res.status(200).json(stmt);
 });
-///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Post new playerhistory
 app.post("appn/new/playerhistory", (req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
 	const stmt = db.prepare(
@@ -342,13 +343,14 @@ app.post("appn/new/playerhistory", (req, res) => {
 	res.json(req);
 });
 
+// Get all playerhistory
 app.get("/app/playerhistory/", (req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	const stmt = db.prepare("SELECT * FROM playerhistory").all();
 	res.status(200).json(stmt);
 });
 
-// /////////
+// Post new high scores
 app.post("appn/new/highscores", (req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
 	const stmt = db.prepare(
@@ -358,6 +360,7 @@ app.post("appn/new/highscores", (req, res) => {
 	res.json(req);
 });
 
+// Get all high scores
 app.get("/app/highscores/", (req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	const stmt = db.prepare("SELECT * FROM highscores").all();
