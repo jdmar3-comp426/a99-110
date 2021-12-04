@@ -231,13 +231,8 @@ app.get("/app/user/last", (req, res) => {
 });
 
 // UPDATE a single user (HTTP method PATCH) at endpoint /app/update/user/:id
-app.patch("/app/update/user/:id", (req, res) => {
-	res.setHeader(
-		"Access-Control-Allow-Origin",
-		"*",
-		"Content-type",
-		"application/json"
-	);
+app.patch("/app/update/user/:user", (req, res) => {
+	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
 	const stmt = db.prepare(
 		"UPDATE userinfo SET user = COALESCE(?,user), pass = COALESCE(?,pass) WHERE id = ?"
 	);

@@ -168,3 +168,9 @@ h2 {
 .endhead {
     font-size: 3.2em;
 }
+
+/************ CHANGE USER ************/
+#change {
+    font-size: 3.4em; 
+    margin: 0.2em;
+}
