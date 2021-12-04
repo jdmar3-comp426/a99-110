@@ -11,12 +11,11 @@
     visibility: hidden;
 }
 
-#content {
-    position: static;
-    left: 300px;
-
+/*************** MAIN CSS ****************/
+body {
+    background: radial-gradient(rgba(213, 228, 229, 0.937), rgba(71, 208, 226, 0.937));
+    height: 200%;
 }
-
 
 .center {
     margin: auto;
@@ -28,21 +27,16 @@
 
 h1 {
     font-family: 'Mouse Memoirs', sans-serif;
-    font-size: 8em;
+    font-size: 7.4em;
     -webkit-text-fill-color: rgb(231, 56, 193);
     -webkit-text-stroke-color: rgb(255, 230, 250);
-    -webkit-text-stroke-width: .9px; 
+    -webkit-text-stroke-width: .05px; 
 }
 
 h2 {
     font-family: 'Gwendolyn', cursive;
     font-size: 5em; 
     margin: 0.2em;
-}
-
-body {
-    background: radial-gradient(rgba(213, 228, 229, 0.937), rgba(71, 208, 226, 0.937));
-    height: 200%;
 }
 
 .sub_btn{
@@ -61,6 +55,7 @@ body {
     transition: all 0.15s;
     margin: 1em;
 }
+
 .sub_btn:hover{
     text-shadow: 0 0 2em rgba(255,255,255,1);
     color:rgb(255, 120, 208);
@@ -86,6 +81,42 @@ body {
 .label {
     font-size: 1.2em;
 }
+
 #username {
     margin-bottom: 1em;
+}
+
+
+/**************** QUIZ SPECIFIC CSS ********************/
+#quiz_title {
+    margin: .1em;
+}
+
+#starting_button {
+    margin-top: 1em;
+    border:0.2em solid #07421e;
+    padding: .7em;
+    border-radius:0.4em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family: 'Mouse Memoirs', sans-serif;
+    font-size: 1.5em;
+    color:#000000;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    background-color: rgb(185, 223, 226);
+    text-align:center;
+    transition: all 0.15s;
+}
+
+#starting_button:hover{
+    text-shadow: 0 0 2em rgba(255,255,255,1);
+    color:rgb(255, 120, 208);
+    border-color:#FFFFFF;
+}
+
+#score {
+    margin-top: 6em;
+    font-family: 'Mouse Memoirs', sans-serif;
+    font-size: 2em;
+    color: white;
 }
