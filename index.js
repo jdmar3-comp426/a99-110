@@ -36,7 +36,6 @@ function getQuestion() {
     if (currentQuestion > 15) {
         document.location = 'leaderboard.html';
         validateUser(points);
-        submitScore(points);
         trackUserHistory();
         getID();
         return;
@@ -282,6 +281,7 @@ function updateAccount() {
 function validateUser(score) {
     var call = new XMLHttpRequest();
     var url = "http://localhost:5000/app/highscores/";
+    let seen = false;
 
     call.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -299,8 +299,13 @@ function validateUser(score) {
                 if (myArr[i].score < score) {
                     patchScore(myArr[i].user, score);
                 }
-          }
+                seen = true;
+            }
         }
+    }
+    if (seen === false) {
+        submitScore(points);
+    }
 }
           
 function validateLogin() {
@@ -321,6 +326,7 @@ function validateLogin() {
             }
         }
     }
+}
 
 function patchScore(user, score) {
     const user = user;
