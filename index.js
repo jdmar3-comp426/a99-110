@@ -1,6 +1,6 @@
 let points = 0;
 let currentQuestion = 0;
-var current_user;
+let current_user = "";
 let workWithThis;
 function startQuestions() {
     getQuestion();
@@ -19,9 +19,10 @@ function submitScore(score) {
     call.setRequestHeader("Content-Type", "application/json", "Access-Control-Allow-Origin", "*");
     console.log(current_user);
     let whoUser = current_user;
+    console.log(whoUser)
     score = score.toString();
-    let toSend = JSON.stringify({user: "whoUser", score: score});
-    console.log(toSend)
+    let toSend = JSON.stringify({user: whoUser, score: score});
+    // console.log(toSend)
     
     // call.setRequestHeader("Content-type", "application/json", "Access-Control-Allow-Origin", "*" );
     call.send(toSend);
@@ -31,6 +32,7 @@ function submitScore(score) {
 }
 function getQuestion() {
     // increaseScore if button selected with correct: 1
+    console.log(current_user);
     currentQuestion += 1;
     if (currentQuestion > 15) {
         //document.location = 'leaderboard.html';
@@ -39,7 +41,7 @@ function getQuestion() {
     }
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/questions/" + currentQuestion
-    console.log(url)
+    // console.log(url)
     call.open("GET", url)
     call.send();
     call.onload = () => {
@@ -52,12 +54,12 @@ function getQuestion() {
 function getAnswers() {
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/questions/" + currentQuestion + "/answers"
-    console.log(url)
+    // console.log(url)
     call.open("GET", url)
     call.send();
     call.onload = () => {
         let returnedResponse = call.response // will be a dictionary.
-        console.log('returned response', returnedResponse);
+        // console.log('returned response', returnedResponse);
         workWithThis = (JSON.parse(returnedResponse))
         // the last element will have the correct answer.
         document.getElementById("answer1").innerHTML = workWithThis["answerOne"];
@@ -102,11 +104,11 @@ function postUser() {
     document.location = 'quiz.html';
     const user = document.getElementById("login_form").user.value;
     const pass = document.getElementById("login_form").pass.value;
-    current_user = document.getElementById("login_form").user.value;
-    console.log("Currenet  USER: " + current_user)
+    
+    current_user = user;
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/new/";
-    console.log(url);
+    
     call.open("POST", url, true);
     
     // call.setRequestHeader("Access-Control-Allow-Origin", "*");
@@ -126,7 +128,7 @@ function postUser() {
 function trackUserHistory() {
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/new/lastPlayer/";
-    console.log(url);
+    // console.log(url);
     call.open("POST", url, true);
     
     // call.setRequestHeader("Access-Control-Allow-Origin", "*");
@@ -136,32 +138,32 @@ function trackUserHistory() {
     
     call.send(toSend);
     call.onload = () => {
-        console.log((call.response));
+        // console.log((call.response));
     }
 }
 
 function getUserHistory() {
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/lastPlayers/"
-    console.log(url)
+    // console.log(url)
     call.open("GET", url)
     call.send();
     call.onload = () => {
         document.getElementById("Element to put response into (multiple elements may be necessary)").innerHTML = call.response
-        console.log(JSON.parse(call.response))
+        // console.log(JSON.parse(call.response))
     }
 }
 
 function checkIfRight(buttonNumber) {
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/answer/" + currentQuestion + "/" + buttonNumber;
-    console.log(url)
-    console.log("URL ^")
+    // console.log(url)
+    // console.log("URL ^")
     call.open("GET", url)
     call.send();
     call.onload = () => {
         //document.getElementById("Element to put response into (multiple elements may be necessary)").innerHTML = call.response
-        console.log(call.response)
+        // console.log(call.response)
         if (call.response != "False") {
             increaseScore();
         }
