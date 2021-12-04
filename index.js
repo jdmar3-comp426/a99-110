@@ -37,33 +37,30 @@ function getAnswers() {
         let returnedResponse = call.response // will be a dictionary.
         console.log('returned response', returnedResponse);
         workWithThis = (JSON.parse(returnedResponse))
-        // the last element will have the correct answer.
-        // document.getElementById("answer1").innerHTML = workWithThis["answerOne"]["answer"];
-        // document.getElementById("answer2").innerHTML = workWithThis["answerTwo"];
-        // document.getElementById("answer3").innerHTML = workWithThis["answerThree"];
-        // document.getElementById("answer4").innerHTML = workWithThis["answerFour"];
+        //the last element will have the correct answer.
+        document.getElementById("answer1").innerHTML = workWithThis["answerOne"];
+        document.getElementById("answer2").innerHTML = workWithThis["answerTwo"];
+        document.getElementById("answer3").innerHTML = workWithThis["answerThree"];
+        document.getElementById("answer4").innerHTML = workWithThis["answerFour"];
 
         console.log(JSON.parse(call.response))
     }
 }
 
 function populateButtons() {
-    document.getElementById("answer1").innerHTML = workWithThis["answerOne"]["answer"];
-    document.getElementById("answer2").innerHTML = workWithThis["answerTwo"];
-    document.getElementById("answer3").innerHTML = workWithThis["answerThree"];
-    document.getElementById("answer4").innerHTML = workWithThis["answerFour"];
+    document.getElementById("answer1").innerHTML = workWithThis["answers"]["answerOne"];
+    document.getElementById("answer2").innerHTML = workWithThis["answers"]["answerTwo"];
+    document.getElementById("answer3").innerHTML = workWithThis["answers"]["answerThree"];
+    document.getElementById("answer4").innerHTML = workWithThis["answers"]["answerFour"];
 }
 
 function checkButton(number) {
-    let res;
-    if (number == 0) {
-        res = workWithThis[0]["correct"];
-
-    } else {
-        if (number = 1) {
-            res = workWithThis[1]["correct"];
-        }
+    let correct_answer = workWithThis["answers"]["correctAnswer"];
+    if (number === correct_answer) {
+        increaseScore();
     }
+    getQuestion();
+    
 
 }
 
