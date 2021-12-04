@@ -52,5 +52,20 @@ function buttonStuff() { // The necessity of this will probably change when chan
 
 
 function postUser() {
+    document.location = 'quiz.html';
+    let password = document.getElementByName('password').value;
+    let username = document.getElementByName('username').value;
     let call = new XMLHttpRequest();
+    let url = "http://localhost:5000/app/new/" + username+ "/" + password + "/";
+    console.log(url);
+    call.open("POST", url);
+    call.send();
+    call.onload = () => {
+        console.log(JSON.parse(call.response));
+    }
 }
+
+// function clicker() {
+//     document.location = 'quiz.html';
+//     postUser()
+// }

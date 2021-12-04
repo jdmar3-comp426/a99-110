@@ -10,3 +10,82 @@
 #answer4 {
     visibility: hidden;
 }
+
+#content {
+    position: static;
+    left: 300px;
+
+}
+
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+}
+
+
+h1 {
+    font-family: 'Mouse Memoirs', sans-serif;
+    font-size: 8em;
+    -webkit-text-fill-color: rgb(231, 56, 193);
+    -webkit-text-stroke-color: rgb(255, 230, 250);
+    -webkit-text-stroke-width: .9px; 
+}
+
+h2 {
+    font-family: 'Gwendolyn', cursive;
+    font-size: 5em; 
+    margin: 0.2em;
+}
+
+body {
+    background: radial-gradient(rgba(213, 228, 229, 0.937), rgba(71, 208, 226, 0.937));
+    height: 200%;
+}
+
+.sub_btn{
+    padding:0.6em 1.9em;
+    border:0.2em solid #07421e;
+    margin:.2em;
+    border-radius:0.4em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family: 'Mouse Memoirs', sans-serif;
+    font-size: 1.5em;
+    color:#000000;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    background-color: rgb(185, 223, 226);
+    text-align:center;
+    transition: all 0.15s;
+    margin: 1em;
+}
+.sub_btn:hover{
+    text-shadow: 0 0 2em rgba(255,255,255,1);
+    color:rgb(255, 120, 208);
+    border-color:#FFFFFF;
+}
+
+.login-container {
+    border: 0.6em solid rgb(17, 50, 198);
+    border-style: double;
+    background: radial-gradient(#e35757, #6871d6);
+}
+
+.input {
+    font-size: 1em;
+    margin-bottom: .3em;
+    color: rgb(255, 255, 234);
+    font-family: monospace;
+    font-size: 110%;
+    -webkit-text-fill-color: #07421e;
+    padding: 3px;
+}
+
+.label {
+    font-size: 1.2em;
+}
+#username {
+    margin-bottom: 1em;
+}
