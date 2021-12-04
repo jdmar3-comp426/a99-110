@@ -205,17 +205,13 @@ function buttonFourAction() {
 }
 
 function deleteFunction() {
-    let id = getID()
+    let id = localStorage.lastID;
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/delete/user/" + id;
     call.open("GET", url)
     call.send();
     call.onload = () => {
         //document.getElementById("Element to put response into (multiple elements may be necessary)").innerHTML = call.response
-        console.log(call.response)
-        if (call.response != "False") {
-            increaseScore();
-        }
     }
 }
 function getID() {
@@ -249,5 +245,6 @@ function createLeaders() {
         for(i = 0; i < arr.length; i++) {
             my_list.innerHTML += "<li> User: "+ arr[i].user + " --- Score: "+ arr[i].score+ "</li>";
         }
+        localStorage.lastID = i;
     }
 }
