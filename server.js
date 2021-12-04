@@ -4,7 +4,7 @@ var app = express();
 var db = require("./database.js");
 // Require md5 MODULE
 var md5 = require("md5");
-var cors = require("cors")
+var cors = require("cors");
 const { Router } = require("express");
 // Make Express use its own built-in body parser
 app.use(express.urlencoded({ extended: true }));
@@ -15,157 +15,174 @@ const questions = [
 		id: 1,
 		question: "What color is the sky?",
 		answers: {
-			answerOne: {answer: "Blue", correct: 0},
-			answerTwo: {answer: "Black", correct: 0},
-			answerThree: {answer: "Sky Blue",correct: 0},
-			answerFour: {answer: "The sky is the limit.", correct: 1},
+			answerOne: "Blue",
+			answerTwo: "Black",
+			answerThree: "Sky Blue",
+			answerFour: "The sky is the limit.",
+			correctAnswer: "4",
 		},
 	},
 	{
 		id: 2,
 		question: "What color is the ground",
 		answers: {
-			answerOne: {answer: "Red", correct: 0},
-			answerTwo: {answer: "Brown", correct: 0},
-			answerThree: {answer: "Beef?", correct: 1},
-			answerFour: {answer: "Green", correct: 0},
+			answerOne: "Red",
+			answerTwo: "Brown",
+			answerThree: "Beef?",
+			answerFour: "Green",
+			correctAnswer: "3",
 		},
 	},
 	{
 		id: 3,
 		question: "How fast sonic go?",
 		answers: {
-			answerOne: {answer: "too fast", correct: 0},
-			answerTwo: {answer: "way slow", correct: 0},
-			answerThree: {answer: "Slowbro", correct: 1},
-			answerFour: {answer: "he no move", correct: 0},
+			answerOne: "too fast",
+			answerTwo: "way slow",
+			answerThree: "Slowbro",
+			answerFour: "he no move",
+			correctAnswer: "3",
 		},
 	},
 	{
 		id: 4,
 		question: "Can I use the bathroom?",
 		answers: {
-			answerOne: {answer: "Can you?", correct: 0},
-			answerTwo: {answer: "Yes", correct: 1},
-			answerThree: {answer: "No", correct: 0},
-			answerFour: {answer: "May I", correct: 0},
+			answerOne: "Can you?",
+			answerTwo: "Yes",
+			answerThree: "No",
+			answerFour: "May I",
+			correctAnswer: "2",
 		},
 	},
 	{
 		id: 5,
 		question: "Ooga Ooga Ooga?",
 		answers: {
-			answerOne: {answer: "Oog?", correct: 0},
-			answerTwo: {answer: "Ooga", correct: 1},
-			answerThree: {answer: "Eeg", correct: 0},
-			answerFour: {answer: "What are you doing?", correct: 0},
+			answerOne: "Oog?",
+			answerTwo: "Ooga",
+			answerThree: "Eeg",
+			answerFour: "What are you doing?",
+			correctAnswer: "2",
 		},
 	},
 	{
 		id: 6,
 		question: "Where are we going?",
 		answers: {
-			answerOne: {answer: "Under water", correct: 0},
-			answerTwo: {answer: "To the airport", correct: 0},
-			answerThree: {answer: "No where", correct: 1},
-			answerFour: {answer: "Home", correct: 0},
+			answerOne: "Under water",
+			answerTwo: "To the airport",
+			answerThree: "No where",
+			answerFour: "Home",
+			correctAnswer: "3",
 		},
 	},
 	{
 		id: 7,
-		question: "What did the Cell say to its sister Cell, when it bumped into it?",
+		question:
+			"What did the Cell say to its sister Cell, when it bumped into it?",
 		answers: {
-			answerOne: {answer: "Hello, my fellow Cell", correct: 0},
-			answerTwo: {answer: "Ow, mi-to-sis", correct: 1},
-			answerThree: {answer: "Cell’s do not speak", correct: 0},
-			answerFour: {answer: "I have no knowledge of cells.", correct: 0},
+			answerOne: "Hello, my fellow Cell",
+			answerTwo: "Ow, mi-to-sis",
+			answerThree: "Cell’s do not speak",
+			answerFour: "I have no knowledge of cells.",
+			correctAnswer: "2",
 		},
 	},
 	{
 		id: 8,
 		question: "Who is calling?",
 		answers: {
-			answerOne: {answer: "Your mom, pick up!", correct: 0},
-			answerTwo: {answer: "Ghosts!", correct: 0},
-			answerThree: {answer: "The Hash-Slinging Slasher", correct: 1},
-			answerFour: {answer: "Your delivery driver", correct: 0},
+			answerOne: "Your mom, pick up!",
+			answerTwo: "Ghosts!",
+			answerThree: "The Hash-Slinging Slasher",
+			answerFour: "Your delivery driver",
+			correctAnswer: "3",
 		},
 	},
 	{
 		id: 9,
-		question: "What smells like blue paint, tastes like blue paint, and is red?",
+		question:
+			"What smells like blue paint, tastes like blue paint, and is red?",
 		answers: {
-			answerOne: {answer: "Red Paint", correct: 0},
-			answerTwo: {answer: "Paint?", correct: 0},
-			answerThree: {answer: "Paint is not for consumption. Why did you taste it?", correct: 0},
-			answerFour: {answer: "I can’t come up with another answer to this question.", correct: 1},
+			answerOne: "Red Paint",
+			answerTwo: "Paint?",
+			answerThree: "Paint is not for consumption. Why did you taste it?",
+			answerFour: "I can’t come up with another answer to this question.",
+			correctAnswer: "4",
 		},
 	},
 	{
 		id: 10,
 		question: "Why am I crying?",
 		answers: {
-			answerOne: {answer: "My roommate is cutting onions.", correct: 0},
-			answerTwo: {answer: "I broke my great-aunt’s favorite vase.", correct: 0},
-			answerThree: {answer: "I got this question wrong", correct: 1},
-			answerFour: {answer: "the world is dark and sad", correct: 0},
+			answerOne: "My roommate is cutting onions.",
+			answerTwo: "I broke my great-aunt’s favorite vase.",
+			answerThree: "I got this question wrong",
+			answerFour: "the world is dark and sad",
+			correctAnswer: "3",
 		},
 	},
 	{
 		id: 11,
 		question: "What’s that smell?",
 		answers: {
-			answerOne: {answer: "Despair", correct: 0},
-			answerTwo: {answer: "Double chocolate chip cookies!", correct: 0},
-			answerThree: {answer: "My gym teacher’s socks", correct: 0},
-			answerFour: {answer: "A completed Lego set.", correct: 1},
+			answerOne: "Despair",
+			answerTwo: "Double chocolate chip cookies!",
+			answerThree: "My gym teacher’s socks",
+			answerFour: "A completed Lego set.",
+			correctAnswer: "1",
 		},
 	},
 	{
 		id: 12,
 		question: "Who is the best Avenger?",
 		answers: {
-			answerOne: {answer: "Thor", correct: 0},
-			answerTwo: {answer: "Anyone, literally anyone", correct: 1},
-			answerThree: {answer: "Aunt May", correct: 0},
-			answerFour: {answer: "The Infinity Stones.", correct: 0},
+			answerOne: "Thor",
+			answerTwo: "Anyone, literally anyone",
+			answerThree: "Aunt May",
+			answerFour: "The Infinity Stones.",
+			correctAnswer: "2",
 		},
 	},
 	{
 		id: 13,
 		question: "What is the best class?",
 		answers: {
-			answerOne: {answer: "COMP 426", correct: 1},
-			answerTwo: {answer: "BIOL 101", correct: 0},
-			answerThree: {answer: "CHEM 101", correct: 0},
-			answerFour: {answer: "ENGL 105", correct: 0},
+			answerOne: "COMP 426",
+			answerTwo: "BIOL 101",
+			answerThree: "CHEM 101",
+			answerFour: "ENGL 105",
+			correctAnswer: "1",
 		},
 	},
 	{
 		id: 14,
 		question: "What is thy fav'rite food?",
 		answers: {
-			answerOne: {answer: "Zza", correct: 1},
-			answerTwo: {answer: "Hamburg'r", correct: 1},
-			answerThree: {answer: "Pasta", correct: 1},
-			answerFour: {answer: "gudgeon", correct: 1},
+			answerOne: "Zza",
+			answerTwo: "Hamburg'r",
+			answerThree: "Pasta",
+			answerFour: "gudgeon",
+			correctAnswer: "",
 		},
 	},
 	{
 		id: 15,
 		question: "How did I get here?",
 		answers: {
-			answerOne: {answer: "The bus.", correct:0},
-			answerTwo: {answer: "Planes, trains, and automobiles.", correct: 0},
-			answerThree: {answer: "BIRTH", correct: 1},
-			answerFour: {answer: "I fell out of the sky", correct: 0},
+			answerOne: "The bus.",
+			answerTwo: "Planes, trains, and automobiles.",
+			answerThree: "BIRTH",
+			answerFour: "I fell out of the sky",
+			correctAnswer: "3",
 		},
 	},
 ];
 
 // Set server port
 var HTTP_PORT = "5000";
-app.options('*', cors())
+app.options("*", cors());
 // Start server
 app.listen(HTTP_PORT, () => {
 	console.log("Server running on port %PORT%".replace("%PORT%", HTTP_PORT));
@@ -180,10 +197,10 @@ app.get("/app/", (req, res, next) => {
 // Define other CRUD API endpoints using express.js and better-sqlite3
 // CREATE a new user (HTTP method POST) at endpoint /app/new/
 app.post("/app/new/", (req, res) => {
-	res.setHeader("Access-Control-Allow-Origin", "*")//, "Content-Type", "application/json");
+	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
 	const stmt = db.prepare("INSERT INTO userinfo (user, pass) VALUES (?, ?)");
 	const info = stmt.run(req.body.user, req.body.pass);
-	res.json(req)
+	res.json(req);
 });
 // READ a list of all users (HTTP method GET) at endpoint /app/users/
 app.get("/app/users", (req, res) => {
@@ -204,7 +221,12 @@ app.get("/app/user/:id", (req, res) => {
 
 // UPDATE a single user (HTTP method PATCH) at endpoint /app/update/user/:id
 app.patch("/app/update/user/:id", (req, res) => {
-	res.setHeader("Access-Control-Allow-Origin", "*", "Content-type", "application/json");
+	res.setHeader(
+		"Access-Control-Allow-Origin",
+		"*",
+		"Content-type",
+		"application/json"
+	);
 	const stmt = db.prepare(
 		"UPDATE userinfo SET user = COALESCE(?,user), pass = COALESCE(?,pass) WHERE id = ?"
 	);
@@ -280,7 +302,8 @@ app.get("/app/answer/:id", function (req, res) {
 	console.log(req);
 	if (
 		questions[parseInt(req.params.id) - 1].answers.correctAnswer ==
-		req.body.answer
+			req.body.answer ||
+		req.params.id == 14
 	) {
 		res.send("True");
 	} else {
@@ -294,6 +317,55 @@ app.post("/app", function (req, res) {
 	res.send("Hello World");
 });
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+// We are ultimately only going to post and get from the table.
+// CREATE a new user (HTTP method POST) at endpoint /app/new/lastPlayer
+app.post("/app/new/lastPlayer/", (req, res) => {
+	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
+	const stmt = db.prepare("INSERT INTO lastplayers (user) VALUES (?)");
+	const info = stmt.run(req.body.user);
+	res.json(req);
+});
+// READ a list of all users (HTTP method GET) at endpoint /app/lastPlayers/
+app.get("/app/lastPlayers/", (req, res) => {
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	const stmt = db.prepare("SELECT * FROM lastplayers").all();
+	res.status(200).json(stmt);
+});
+
+// Post new playerhistory
+app.post("appn/new/playerhistory", (req, res) => {
+	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
+	const stmt = db.prepare(
+		"INSERT INTO playerhistory (user, question, answer, point) VALUES (?, ?, ?, ?)"
+	);
+	const info = stmt.run(req.body.user);
+	res.json(req);
+});
+
+// Get all playerhistory
+app.get("/app/playerhistory/", (req, res) => {
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	const stmt = db.prepare("SELECT * FROM playerhistory").all();
+	res.status(200).json(stmt);
+});
+
+// Post new high scores
+app.post("appn/new/highscores", (req, res) => {
+	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
+	const stmt = db.prepare(
+		"INSERT INTO playerhistory (user, score) VALUES (?, ?)"
+	);
+	const info = stmt.run(req.body.user);
+	res.json(req);
+});
+
+// Get all high scores
+app.get("/app/highscores/", (req, res) => {
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	const stmt = db.prepare("SELECT * FROM highscores").all();
+	res.status(200).json(stmt);
+});
 // Default response for any other request
 app.use(function (req, res) {
 	res.json("Your API is working!");
