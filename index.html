@@ -11,31 +11,20 @@
     <title>THE NOT POSSIBLE QUIZ</title>
 </head>
 <body>
-    <div id="content">
-    <h1 class="center">THE POSSIBLE QUIZ</h1>
+    <h1 class="center">THE NOT POSSIBLE QUIZ</h1>
     
-
+    <div id="content">
     <section class="center">
         <div class="login-container">
             <h2 id="login">Login</h2>
             <form id="login_form">
-                <div class="field">
-                    <label class="label">Username</label>
-                    <div class="control">
-                        <input class="input" id="username" type="text" placeholder="Cookie Monster" name="username">
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label">Password</label>
-                    <div class="control">
-                        <input class="input" type="password" placeholder="password123" name="password">
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="control">
-                        <button class="sub_btn" type="button" onclick="postUser()">Submit</button>
-                    </div>
-                </div>
+                <label for="user" class="label">Username</label>
+                <input class="input" id="user" type="text" placeholder="Cookie Monster" name="userr">
+                <br>
+                <label for="pass" class="label">Password</label>
+                <input class="input" type="pass" placeholder="password123" name="pass">
+                <br>
+                <button class="sub_btn" type="button" onclick="postUser()">Submit</button>
             </form>
         </div>
     </section>
