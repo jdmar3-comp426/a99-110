@@ -205,6 +205,7 @@ app.get("/app/user/:id", (req, res) => {
 		.get(req.params.id);
 	res.status(200).json(stmt);
 });
+
 // UPDATE a single user (HTTP method PATCH) at endpoint /app/update/user/:id
 app.patch("/app/update/user/:id", (req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*");
@@ -221,6 +222,7 @@ app.patch("/app/update/user/:id", (req, res) => {
 			" (200)",
 	});
 });
+
 // DELETE a single user (HTTP method DELETE) at endpoint /app/delete/user/:id
 app.delete("/app/delete/user/:id", (req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*");
@@ -259,6 +261,7 @@ app.get("/app/questions/:id", function (req, res) {
 	}
 });
 
+// GET ANSWER LIST
 app.get("/app/questions/:id/answers", function (req, res) {
 	// Lets get the answers here.
 	res.setHeader("Access-Control-Allow-Origin", "*");
@@ -275,8 +278,18 @@ app.get("/app/questions/:id/answers", function (req, res) {
 	}
 });
 
+// CHECK CORRECT ANSWER
 app.get("/app/answer/:id", function (req, res) {
 	res.setHeader("Access-Control-Allow-Origin", "*");
+	console.log(req);
+	if (
+		questions[parseInt(req.params.id) - 1].answers.correctAnswer ==
+		req.body.answer
+	) {
+		res.send("True");
+	} else {
+		res.send("False");
+	}
 	res.status(200);
 });
 
