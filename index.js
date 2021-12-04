@@ -76,3 +76,32 @@ function postUser() {
 //     document.location = 'quiz.html';
 //     postUser()
 // }
+
+function trackUserHistory() {
+    let call = new XMLHttpRequest();
+    let url = "http://localhost:5000/app/new/lastPlayer/";
+    console.log(url);
+    call.open("POST", url, true);
+    
+    // call.setRequestHeader("Access-Control-Allow-Origin", "*");
+    call.setRequestHeader("Content-Type", "application/json", "Access-Control-Allow-Origin", "*");
+    // call.send("user=test&pass=supersecurepassword");
+    let toSend = JSON.stringify({user: "help"});
+    
+    call.send(toSend);
+    call.onload = () => {
+        console.log((call.response));
+    }
+}
+
+function getUserHistory() {
+    let call = new XMLHttpRequest();
+    let url = "http://localhost:5000/app/lastPlayers/"
+    console.log(url)
+    call.open("GET", url)
+    call.send();
+    call.onload = () => {
+        document.getElementById("Element to put response into (multiple elements may be necessary)").innerHTML = call.response
+        console.log(JSON.parse(call.response))
+    }
+}
