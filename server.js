@@ -312,6 +312,24 @@ app.post("/app", function (req, res) {
 	res.send("Hello World");
 });
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+// We are ultimately only going to post and get from the table. 
+// CREATE a new user (HTTP method POST) at endpoint /app/new/lastPlayer
+app.post("/app/new/lastPlayer/", (req, res) => {
+	res.setHeader("Access-Control-Allow-Origin", "*")//, "Content-Type", "application/json");
+	const stmt = db.prepare("INSERT INTO lastplayers (user) VALUES (?)");
+	const info = stmt.run(req.body.user);
+	res.json(req)
+});
+// READ a list of all users (HTTP method GET) at endpoint /app/lastPlayers/
+app.get("/app/lastPlayers/", (req, res) => {
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	const stmt = db.prepare("SELECT * FROM lastplayers").all();
+	res.status(200).json(stmt);
+});
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Default response for any other request
 app.use(function (req, res) {
 	res.json("Your API is working!");
