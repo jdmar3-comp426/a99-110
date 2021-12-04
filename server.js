@@ -336,7 +336,7 @@ app.get("/app/lastPlayers/", (req, res) => {
 });
 
 // Post new playerhistory
-app.post("appn/new/playerhistory", (req, res) => {
+app.post("app/new/playerhistory", (req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
 	const stmt = db.prepare(
 		"INSERT INTO playerhistory (user, question, answer, point) VALUES (?, ?, ?, ?)"
@@ -359,15 +359,10 @@ app.get("/app/playerhistory/", (req, res) => {
 // post new highscores
 app.post("/app/newHighscore", (req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
-<<<<<<< HEAD
 	const stmt = db.prepare(
 		"INSERT INTO playerhistory (user, score) VALUES (?, ?)"
 	);
 	const info = stmt.run(req.body.user, req.body.score);
-=======
-	const stmt = db.prepare("INSERT INTO highscores (user, pass) VALUES (?, ?)");
-	const info = stmt.run(req.body.user, req.body.pass);
->>>>>>> main
 	res.json(req);
 });
 
