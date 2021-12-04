@@ -53,7 +53,7 @@ function buttonStuff() { // The necessity of this will probably change when chan
 
 
 function postUser() {
-    // document.location = 'quiz.html';
+    document.location = 'quiz.html';
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000/app/new/";
     console.log(url);
