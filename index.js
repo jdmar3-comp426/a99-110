@@ -248,3 +248,31 @@ function createLeaders() {
         localStorage.lastID = i;
     }
 }
+
+function updateAccount() {
+    const user = document.getElementById("login_form").user.value;
+    const pass = document.getElementById("login_form").pass.value;
+    let testing = document.getElementById("login_form").user.value;
+    console.log(testing);
+    current_user = testing;
+    console.log(current_user);
+    localStorage.currentperson = testing;
+    document.location = 'index.html';
+    let call = new XMLHttpRequest();
+    let url = "http://localhost:5000//app/update/user/:user/";
+    console.log(url);
+    call.open("POST", url, true);
+    
+    // call.setRequestHeader("Access-Control-Allow-Origin", "*");
+    call.setRequestHeader("Content-Type", "application/json", "Access-Control-Allow-Origin", "*");
+    // call.send("user=test&pass=supersecurepassword");
+    let toSend = JSON.stringify({user: user, pass: pass});
+    //console.log(toSend)
+    
+    // call.setRequestHeader("Content-type", "application/json", "Access-Control-Allow-Origin", "*" );
+    call.send(toSend);
+    call.onload = () => {
+        current_user = ((call.response));
+        console.log(current_user)
+    }
+}
