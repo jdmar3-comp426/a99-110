@@ -225,6 +225,19 @@ function deleteFunction() {
     call.onload = () => {
         console.log(call.response)
     }
+    deleteDatabase();
+}
+
+function deleteDatabase() {
+    let id = localStorage.lastID;
+    let call = new XMLHttpRequest();
+    let url = "http://localhost:5000/app/delete/users/" + localStorage.currentperson;
+    console.log(url)
+    call.open("DELETE", url)
+    call.send();
+    call.onload = () => {
+        console.log(call.response)
+    }
 }
 
 // grabs user ID
@@ -283,6 +296,7 @@ function updateAccount() {
     call.send(toSend);
     call.onload = () => {
     }
+    document.location = "index.html"
 }
 
 // checks if a user is already in the scores database and if their score tops their highscore

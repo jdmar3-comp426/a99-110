@@ -279,8 +279,17 @@ app.patch("/app/update/highscores/:user", (req, res) => {
 // DELETE a single user (HTTP method DELETE) at endpoint /app/delete/user/:id
 app.delete("/app/delete/user/:user", (req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*");
-	const stmt = db.prepare("DELETE FROM highscores WHERE user = ?");
-	const info = stmt.run(req.params.user);
+	let stmt = db.prepare("DELETE FROM highscores WHERE user = ?");
+	let info = stmt.run(req.params.user);
+	res.json({
+		"message": req
+	});
+});
+
+app.delete("/app/delete/users/:user", (req, res) => {
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	let stmt = db.prepare("DELETE FROM userinfo WHERE user = ?");
+	let info = stmt.run(req.params.user);
 	res.json({
 		"message": req
 	});
