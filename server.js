@@ -234,15 +234,15 @@ app.get("/app/user/last", (req, res) => {
 app.patch("/app/update/user/:user", (req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*"); //, "Content-Type", "application/json");
 	const stmt = db.prepare(
-		"UPDATE userinfo SET user = COALESCE(?,user), pass = COALESCE(?,pass) WHERE id = ?"
+		"UPDATE userinfo SET pass = COALESCE(?,pass) WHERE user = ?"
 	);
-	const info = stmt.run(req.body.user, md5(req.body.pass), req.params.id);
+	const info = stmt.run((req.body.pass), req.params.user);
 	res.json({
 		message:
 			info.changes +
 			" record updated: " +
 			"ID " +
-			req.params.id +
+			req.params.user +
 			" (200)",
 	});
 });
