@@ -251,30 +251,22 @@ function createLeaders() {
 }
 
 function updateAccount() {
-    const user = document.getElementById("login_form").user.value;
-    const pass = document.getElementById("login_form").pass.value;
-    let testing = document.getElementById("login_form").user.value;
-    console.log(testing);
-    current_user = testing;
-    console.log(current_user);
-    localStorage.currentperson = testing;
-    document.location = 'index.html';
+    const user = document.getElementById("change_form").user.value;
+    const pass = document.getElementById("change_form").pass.value;
+    console.log(user, pass)
     let call = new XMLHttpRequest();
-    let url = "http://localhost:5000//app/update/user/:user/";
-    console.log(url);
-    call.open("POST", url, true);
+    let url = "http://localhost:5000/app/update/user/" + user + "/";
+    call.open("PATCH", url, true);
     
     // call.setRequestHeader("Access-Control-Allow-Origin", "*");
     call.setRequestHeader("Content-Type", "application/json", "Access-Control-Allow-Origin", "*");
     // call.send("user=test&pass=supersecurepassword");
-    let toSend = JSON.stringify({user: user, pass: pass});
+    let toSend = JSON.stringify({pass: pass});
     //console.log(toSend)
     
     // call.setRequestHeader("Content-type", "application/json", "Access-Control-Allow-Origin", "*" );
     call.send(toSend);
     call.onload = () => {
-        current_user = ((call.response));
-        console.log(current_user)
     }
 }
 
@@ -302,7 +294,7 @@ function validateUser(score) {
                 seen = true;
             }
         }
-    }
+    };
     if (seen === false) {
         submitScore(points);
     }
@@ -322,15 +314,36 @@ function validateLogin() {
                     postUser();
                 } else {
                     alert("That is the incorrect password!")
+                    return
                 }
             }
         }
     }
 }
 
+function validateSignup() {
+    let call = new XMLHttpRequest();
+    let url = "http://localhost:5000/app/users/"
+    console.log(url)
+    call.open("GET", url)
+    call.send();
+    call.onload = () => {
+        let returningJSON = (JSON.parse(call.response))
+        let seen = false
+        for (let i = 0; i < returningJSON.length; i++) {
+            if (returningJSON[i].user == document.getElementById("login_form").user.value) {
+                alert("This account already exists!")
+                seen = true
+                return;
+            }
+        }
+        if (!(seen)) {
+            postUser();
+        }
+    }
+}
+
 function patchScore(user, score) {
-    const user = user;
-    const score = score;
     let call = new XMLHttpRequest();
     let url = "http://localhost:5000//app/update/highscores/:user/";
     console.log(url);
