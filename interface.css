@@ -174,3 +174,8 @@ h2 {
     font-size: 3.4em; 
     margin: 0.2em;
 }
+
+#leaders {
+    font-family: monospace;
+    font-size: 120%;
+}
