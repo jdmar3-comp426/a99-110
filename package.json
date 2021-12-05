@@ -11,7 +11,7 @@
     "url": "git+https://github.com/jdmar3-comp426/a99-110.git"
   },
   "author": "\"Claire Helms, Josh Lovett, Fernando Garcia, Raine Thai, Makeda Phoenix\"",
-  "license": "ISC",
+  "license": "GPL-3.0-only",
   "bugs": {
     "url": "https://github.com/jdmar3-comp426/a99-110/issues"
   },
